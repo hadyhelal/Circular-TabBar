@@ -23,14 +23,14 @@ class SelectFirstItem: ChangeSelection {
     }
     
     func changeSelection(toButton middleBtn: UIButton) {
-        middleBtn.setBackgroundImage(TabBarImages.chatSelected, for: .normal)
+        middleBtn.setBackgroundImage(TabBarImages.cartSelected, for: .normal)
         tabBar.items![0].image = nil
         
         let homeItem = tabBar.items?[1]
         homeItem?.image = TabBarImages.homeUnselected
         
         let quizeItem = tabBar.items?[2]
-        quizeItem?.image = TabBarImages.quizzesUnSelected
+        quizeItem?.image = TabBarImages.orderUnSelected
     }
 }
 
@@ -49,10 +49,10 @@ class SelectSecondItem: ChangeSelection {
         tabBar.items![1].image = nil
 
         let quizeItem = tabBar.items?[2]
-        quizeItem?.image = TabBarImages.quizzesUnSelected
+        quizeItem?.image = TabBarImages.orderUnSelected
         
         let chatITem = tabBar.items?[0]
-        chatITem?.image = TabBarImages.chatUnselected
+        chatITem?.image = TabBarImages.cartUnselected
     }
 }
 
@@ -66,7 +66,7 @@ class SelectThirdItem: ChangeSelection {
     }
     
     func changeSelection(toButton middleBtn: UIButton) {
-        middleBtn.setBackgroundImage(TabBarImages.quizzedSelected, for: .normal)
+        middleBtn.setBackgroundImage(TabBarImages.orderSelected, for: .normal)
         
         tabBar.items![2].image = nil
         
@@ -74,7 +74,7 @@ class SelectThirdItem: ChangeSelection {
         homeItem?.image = TabBarImages.homeUnselected
         
         let chatITem = tabBar.items?[0]
-        chatITem?.image = TabBarImages.chatUnselected
+        chatITem?.image = TabBarImages.cartUnselected
     }
 }
 

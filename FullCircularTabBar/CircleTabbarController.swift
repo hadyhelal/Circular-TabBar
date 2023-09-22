@@ -1,24 +1,21 @@
 //
 //  CircleTabbarController.swift
-//  DalilApp
+//  FullCircularTabBar
 //
 //  Created by Hady on 8/8/23.
-//  Copyright © 2023 Hady. All rights reserved.
-//
 
 import UIKit
 
 
 //MARK: - Selected/Unselected Images
 struct TabBarImages {
-    // TabBarItem images
     static let homeSelected    = #imageLiteral(resourceName: "home_selected")
-    static let chatSelected    = #imageLiteral(resourceName: "chat_selected")
-    static let quizzedSelected = #imageLiteral(resourceName: "quizzes_selected")
+    static let cartSelected    = #imageLiteral(resourceName: "cart-selected")
+    static let orderSelected   = #imageLiteral(resourceName: "orders-selected")
      
-    static let homeUnselected    = #imageLiteral(resourceName: "tabBar_home")
-    static let chatUnselected    = #imageLiteral(resourceName: "tapbar_chat")
-    static let quizzesUnSelected = #imageLiteral(resourceName: "tapBar_quiezzes")
+    static let homeUnselected    = #imageLiteral(resourceName: "home-unselected")
+    static let cartUnselected    = #imageLiteral(resourceName: "cart-unselected")
+    static let orderUnSelected   = #imageLiteral(resourceName: "order-unselected")
 }
 
 
@@ -31,11 +28,11 @@ class CircleTabbarController: UITabBarController {
     
     var isSetup = false
     
-    lazy var firstItmeSelection  = SelectFirstItem(tabBar: tabBar)
-    lazy var secondItemSelection = SelectSecondItem(tabBar: tabBar)
-    lazy var thirdItemSelection  = SelectThirdItem(tabBar: tabBar)
+    private lazy var firstItmeSelection  = SelectFirstItem(tabBar: tabBar)
+    private lazy var secondItemSelection = SelectSecondItem(tabBar: tabBar)
+    private lazy var thirdItemSelection  = SelectThirdItem(tabBar: tabBar)
     
-    lazy var selectionStrategy  = SelectItemStrategy(strategy: secondItemSelection, circleButton: middleBtn) //Start with second item
+    lazy var selectionStrategy   = SelectItemStrategy(strategy: secondItemSelection, circleButton: middleBtn) //Start with second item
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -65,7 +62,6 @@ class CircleTabbarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
 
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
@@ -76,11 +72,11 @@ class CircleTabbarController: UITabBarController {
         
         let tabBarItemWidth = itemViews.last ?? 0.0 //Pick bigger tapbar item
         
-        let totalItemsWidth = tabBarItemWidth * CGFloat(tabBar.items?.count ?? 1) //3 tabBar items
+        let totalItemsWidth = tabBarItemWidth * CGFloat(tabBar.items?.count ?? 1) //3 TabBar items
         let emptySpace      = tabBar.frame.width - totalItemsWidth
         
-        //middleBtn default location in the middle tabbar (considirng odd tabbar item count number
-        if item == (tabBar.items!)[0]{
+        //MiddleBtn default location in the middle tabbar (considirng odd tabbar item count number
+        if item == (tabBar.items!)[0] {
             
             let tranformX = CGAffineTransform(translationX: -tabBarItemWidth - (emptySpace / 2), y: 0.0)
             let circleCenterWidth = tabBarItemWidth / 2
@@ -99,6 +95,7 @@ class CircleTabbarController: UITabBarController {
             selectionStrategy.selectTabBarItem()
             
         } else if item == (tabBar.items!)[2] {
+            
             let tranformX = CGAffineTransform(translationX: tabBarItemWidth + (emptySpace / 2), y: 0.0)
             
             let circleCenterWidth = tabBar.frame.width - (tabBarItemWidth / 2)
@@ -124,7 +121,6 @@ class CircleTabbarController: UITabBarController {
 
 
 
-
 extension CircleTabbarController {
     
     //setup Middle Button
@@ -138,6 +134,7 @@ extension CircleTabbarController {
         middleBtn.setBackgroundImage(UIImage(named: "home_bar"), for: .normal)
         //add to the tabbar and add click event
         self.tabBar.addSubview(middleBtn)
+        middleBtn.tag = 1
         middleBtn.addTarget(self, action: #selector(self.menuButtonAction), for: .touchUpInside)
 
         self.view.layoutIfNeeded()
@@ -156,7 +153,7 @@ extension CircleTabbarController {
         menuButton.layer.cornerRadius = menuButtonFrame.height/2
         view.addSubview(menuButton)
         view.bringSubviewToFront(menuButton)
-        
+        menuButton.tag = 2
         menuButton.addTarget(self, action: #selector(menuButtonAction(sender:)), for: .touchUpInside)
         middleBtn2 = menuButton
         view.layoutIfNeeded()
@@ -169,8 +166,8 @@ extension CircleTabbarController {
 
         self.selectedIndex = 1
         
-        UIView.animate(withDuration: 0.40) {
-            self.middleBtn.transform = .identity
+        UIView.animate(withDuration: 0.40) { [weak self] in
+            self?.middleBtn.transform = .identity
         }
         
         let circleTabBar = tabBar as! CircleTabbar
@@ -180,17 +177,17 @@ extension CircleTabbarController {
         tabBar.items?[1].image = nil
         
         let quizeItem = tabBar.items?[2]
-        quizeItem?.image = TabBarImages.quizzesUnSelected
+        quizeItem?.image = TabBarImages.orderUnSelected
         
         let chatITem = tabBar.items?[0]
-        chatITem?.image = TabBarImages.chatUnselected
+        chatITem?.image = TabBarImages.cartUnselected
 
     }
     
     
     //setup Middle Button
      private func setupFirstButton() {
-        let fullWidth = self.tabBar.frame.width / 3
+         let fullWidth = self.tabBar.frame.width / CGFloat((tabBar.items?.count ?? 3))
 //        let lang = UserDefaults.standard.object(forKey: "loclz") as? String
          let x = (self.tabBar.frame.size.width - fullWidth)
          //STYLE THE BUTTON YOUR OWN WAY

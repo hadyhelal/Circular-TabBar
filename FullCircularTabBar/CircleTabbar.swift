@@ -1,6 +1,6 @@
 //
 //  CircleTabbar.swift
-//  DalilApp
+//  FullCircularTabBar
 //
 //  Created by Hady on 8/8/23.
 //  Copyright © 2023 Hady. All rights reserved.
@@ -36,7 +36,6 @@ class CircleTabbar: UITabBar {
         let center = circleCenter == nil ? self.frame.width / 2 : circleCenter
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = createPath(centerWidth: center!)
-       
         shapeLayer.strokeColor = UIColor.clear.cgColor
         shapeLayer.fillColor = UIColor.white.cgColor
         
@@ -78,27 +77,6 @@ class CircleTabbar: UITabBar {
         path.addLine(to: CGPoint(x: 0, y: self.frame.height))
         path.close()
 
-        return path.cgPath
-    }
-
-    func createPathCircle(centerWidth: CGFloat) -> CGPath {
-
-        let radius: CGFloat = 40.0
-                
-            let path = UIBezierPath(
-                roundedRect: bounds,
-                byRoundingCorners: [.topLeft, .topRight],
-                cornerRadii: CGSize(width: CircleTabbarController.radius, height: 0.0))
-        
-
-       // let centerWidth = self.frame.width / 2
-        path.move(to: CGPoint(x: 0, y: 0))
-       path.addLine(to: CGPoint(x: (centerWidth - radius * 2), y: 0))
-        path.addArc(withCenter: CGPoint(x: centerWidth, y: 0), radius: radius, startAngle: CGFloat(180).degreesToRadians, endAngle: CGFloat(0).degreesToRadians, clockwise: false)
-        path.addLine(to: CGPoint(x: self.frame.width, y: 0))
-//        path.addLine(to: CGPoint(x: self.frame.width, y: self.frame.height))
-//        path.addLine(to: CGPoint(x: 0, y: self.frame.height))
-        path.close()
         return path.cgPath
     }
     
