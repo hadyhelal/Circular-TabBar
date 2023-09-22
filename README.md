@@ -1,7 +1,7 @@
-# Circular-TabBar
-iOS applicaiton which have marvelous UITabBarController that always set the selected UITabBarItem as main TabBar item with animated movment circle UIButton in the middle 😉.
+# Circular TabBar
+Marvelous iOS Custom UITabBarController that always set the selected UITabBarItem as main TabBar entry with animated movment circle UIButton in the middle 😉.
 
 
-Chat Selected              |  Home Selected            |  Quizz Selectect
+Cart Selected              |  Home Selected            |  Quizz Selected
 :-------------------------:|:-------------------------:|:-------------------------:
-![alt text](https://user-images.githubusercontent.com/43111993/269722941-4f923fa0-e73b-4a7c-a887-4c9a79533c3e.jpeg)  |  ![alt text](https://user-images.githubusercontent.com/43111993/269722257-7540ba0d-9bfc-4df6-b3e3-35801861f598.jpeg)  |  ![alt text](https://user-images.githubusercontent.com/43111993/269722787-ff1a1e00-0931-402b-bb87-f3c53acbe5a0.jpeg)
+![alt text](https://user-images.githubusercontent.com/43111993/269998466-20ba2522-5e05-4d57-a0a5-311671bf99ad.jpg)  |  ![alt text](https://user-images.githubusercontent.com/43111993/269998519-73253197-1455-4554-91e8-97cd051cb27e.jpg)  |  ![alt text](https://user-images.githubusercontent.com/43111993/269998396-8eb6a7f6-32ed-4367-bc95-0e7926a3ca15.jpg)
