@@ -8,6 +8,8 @@
 
 import UIKit
 
+
+//MARK: - Selected/Unselected Images
 struct TabBarImages {
     // TabBarItem images
     static let homeSelected    = #imageLiteral(resourceName: "home_selected")
@@ -67,7 +69,6 @@ class CircleTabbarController: UITabBarController {
 
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-//        guard let circleTabBar = tabBar as? CircleTabbar else { return }
         
         var itemViews = tabBar.subviews.compactMap{$0.frame.width}
         itemViews = itemViews.sorted{$0 < $1}
@@ -82,17 +83,15 @@ class CircleTabbarController: UITabBarController {
         if item == (tabBar.items!)[0]{
             
             let tranformX = CGAffineTransform(translationX: -tabBarItemWidth - (emptySpace / 2), y: 0.0)
-            changeMiddleButtonLocation(tranformX, tabBarItemWidth / 2)
+            let circleCenterWidth = tabBarItemWidth / 2
+
+            changeMiddleButtonLocation(tranformX, circleCenterWidth)
             
             selectionStrategy.changeTo(strategy: firstItmeSelection)
             selectionStrategy.selectTabBarItem()
             
         } else if item == (tabBar.items!)[1] {
-//            UIView.animate(withDuration: 0.40) {
-//                self.middleBtn.transform = .identity
-//            }
-//            circleTabBar.addShape(circleCenter: nil)
-            
+
         
             changeMiddleButtonLocation(.identity, nil)
             
@@ -101,10 +100,6 @@ class CircleTabbarController: UITabBarController {
             
         } else if item == (tabBar.items!)[2] {
             let tranformX = CGAffineTransform(translationX: tabBarItemWidth + (emptySpace / 2), y: 0.0)
-//            UIView.animate(withDuration: 0.40) {
-//                self.middleBtn.transform = tranformX
-//                circleTabBar.addShape(circleCenter: tabBar.frame.width - (tabBarItemWidth / 2))
-//            }
             
             let circleCenterWidth = tabBar.frame.width - (tabBarItemWidth / 2)
             changeMiddleButtonLocation(tranformX, circleCenterWidth)
@@ -159,15 +154,15 @@ extension CircleTabbarController {
         menuButtonFrame.origin.x = view.bounds.width/2 - menuButtonFrame.size.width/2
         menuButton.frame = menuButtonFrame
         menuButton.layer.cornerRadius = menuButtonFrame.height/2
-        self.view.addSubview(menuButton)
-        self.view.bringSubviewToFront(menuButton)
+        view.addSubview(menuButton)
+        view.bringSubviewToFront(menuButton)
         
         menuButton.addTarget(self, action: #selector(menuButtonAction(sender:)), for: .touchUpInside)
         middleBtn2 = menuButton
-        self.view.layoutIfNeeded()
+        view.layoutIfNeeded()
     }
     
-    @objc func menuButtonAction(sender: UIButton) {
+     @objc private func menuButtonAction(sender: UIButton) {
         if middleBtn != nil {
             middleBtn.setBackgroundImage(UIImage(named: "home_bar"), for: .normal)
         }
@@ -194,7 +189,7 @@ extension CircleTabbarController {
     
     
     //setup Middle Button
-     func setupFirstButton() {
+     private func setupFirstButton() {
         let fullWidth = self.tabBar.frame.width / 3
 //        let lang = UserDefaults.standard.object(forKey: "loclz") as? String
          let x = (self.tabBar.frame.size.width - fullWidth)
@@ -206,7 +201,7 @@ extension CircleTabbarController {
         firstBtn.addTarget(self, action: #selector(menuFirstButtonAction(sender:)), for: .touchUpInside)
     }
 
-    @objc func menuFirstButtonAction(sender: UIButton) {
+    @objc private func menuFirstButtonAction(sender: UIButton) {
         
 //        moreOption()
         
